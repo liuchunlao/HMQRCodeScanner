@@ -152,18 +152,22 @@
 #pragma mark - AVCaptureMetadataOutputObjectsDelegate
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection {
     
+    // 清除图层上的其他内容！
+    // 系统识别出条码内容后会以横线形式显示在屏幕上！影响后续扫描！
     [self clearDrawLayer];
     
     for (id obj in metadataObjects) {
+        
         // 判断检测到的对象类型
         if (![obj isKindOfClass:[AVMetadataMachineReadableCodeObject class]]) {
+            NSLog(@"未检测到可识别类型的二维码");
             return;
         }
         
         // 转换对象坐标
         AVMetadataMachineReadableCodeObject *dataObject = (AVMetadataMachineReadableCodeObject *)[previewLayer transformedMetadataObjectForMetadataObject:obj];
         
-        // 判断扫描范围
+        // 判断扫描范围->超出扫描范围的内容进行忽略！
         if (!CGRectContainsRect(self.scanFrame, dataObject.bounds)) {
             continue;
         }
@@ -202,7 +206,7 @@
     
     CAShapeLayer *layer = [CAShapeLayer layer];
     
-    layer.lineWidth = 4;
+    layer.lineWidth = 2;
     layer.strokeColor = [UIColor greenColor].CGColor;
     layer.fillColor = [UIColor clearColor].CGColor;
     layer.path = [self cornersPath:dataObject.corners];

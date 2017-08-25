@@ -52,15 +52,16 @@
     // 1.界面准备 导航栏 + 方框动画 + 遮罩镂空效果
     [self prepareUI];
     
-    // 实例化扫描器
+    // 2.实例化扫描器
     __weak typeof(self) weakSelf = self;
     
     // 扫描器类！
+    // 实例化之前指定显示范围 和 扫描生效的限制范围！
     scanner = [HMScanner scanerWithView:self.view scanFrame:scannerBorder.frame completion:^(NSString *stringValue) {
         // 完成回调
         weakSelf.completionCallBack(stringValue);
         
-        // 关闭
+        // 扫描成功后自动关闭
         [weakSelf clickCloseButton];
     }];
 }
