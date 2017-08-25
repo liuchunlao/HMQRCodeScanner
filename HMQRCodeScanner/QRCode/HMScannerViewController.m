@@ -24,6 +24,7 @@
 @property (nonatomic) UIImage *avatar;
 /// 完成回调
 @property (nonatomic, copy) void (^completionCallBack)(NSString *);
+
 @end
 
 @implementation HMScannerViewController {
@@ -48,10 +49,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 1.界面准备 导航栏 + 方框动画 + 遮罩镂空效果
     [self prepareUI];
     
     // 实例化扫描器
     __weak typeof(self) weakSelf = self;
+    
+    // 扫描器类！
     scanner = [HMScanner scanerWithView:self.view scanFrame:scannerBorder.frame completion:^(NSString *stringValue) {
         // 完成回调
         weakSelf.completionCallBack(stringValue);
@@ -152,8 +156,13 @@
 - (void)prepareUI {
     self.view.backgroundColor = [UIColor darkGrayColor];
     
+    // 导航栏属性设置
     [self prepareNavigationBar];
+    
+    // 扫描框  方框（四角图片+横线） + 遮罩视图（灰色遮罩+镂空边线）！
     [self prepareScanerBorder];
+    
+    // 其他控件 文字提示和其他按钮！
     [self prepareOtherControls];
 }
 
@@ -199,6 +208,7 @@
     
     [self.view addSubview:scannerBorder];
     
+    // 指定显示大小和不显示遮罩的范围！
     HMScannerMaskView *maskView = [HMScannerMaskView maskViewWithFrame:self.view.bounds cropRect:scannerBorder.frame];
     [self.view insertSubview:maskView atIndex:0];
 }

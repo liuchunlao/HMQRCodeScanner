@@ -28,13 +28,17 @@
 
 - (void)drawRect:(CGRect)rect {
     
+    // 1.获取图形上下文
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
+    // 2.全屏填充颜色
     [[UIColor colorWithWhite:0.0 alpha:0.4] setFill];
     CGContextFillRect(ctx, rect);
     
+    // 3.清除某片区域的填充效果！
     CGContextClearRect(ctx, self.cropRect);
     
+    // 4.给清除的区域添加边界！
     [[UIColor colorWithWhite:0.95 alpha:1.0] setStroke];
     CGContextStrokeRectWithWidth(ctx, CGRectInset(_cropRect, 1, 1), 1);
 }

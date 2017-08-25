@@ -45,6 +45,7 @@
 
 #pragma mark - 设置界面
 - (void)prepareUI {
+    
     self.clipsToBounds = YES;
     
     // 图像文件包
@@ -62,6 +63,7 @@
     
     // 加载边框图像
     for (NSInteger i = 1; i < 5; i++) {
+        
         NSString *imgName = [NSString stringWithFormat:@"ScanQR%zd", i];
         UIImageView *img = [[UIImageView alloc] initWithImage:[self imageWithName:imgName bundle:imageBundle]];
         

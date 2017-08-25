@@ -25,6 +25,8 @@
 - (instancetype)initWithCardName:(NSString *)cardName avatar:(UIImage *)avatar completion:(void (^)(NSString *))completion {
     self = [super init];
     if (self) {
+        
+        // 扫描控制器！HMScannerViewController
         HMScannerViewController *scanner = [[HMScannerViewController alloc] initWithCardName:cardName avatar:avatar completion:completion];
         
         [self setTitleColor:[UIColor whiteColor] tintColor:[UIColor greenColor]];
@@ -39,10 +41,12 @@
     self.navigationBar.tintColor = tintColor;
 }
 
+// 支持方向-只支持正常方向！
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 
+// 状态栏效果！
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
